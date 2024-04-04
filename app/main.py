@@ -16,7 +16,7 @@ app = FastAPI(title="Personal Job Posting Parser and Tracker", version="1.0")
 async def fetch_job_posting(url: str) -> str:
     async with httpx.AsyncClient() as client:
         response = await client.get(url)
-        response.raise_for_status()  # This will raise an exception for HTTP error codes
+        response.raise_for_status()  # Raise an exception for HTTP error codes
         return response.text
 
 
@@ -44,7 +44,7 @@ async def send_to_openai(clean_text: str) -> str | None:
         temperature=0.7
     )
     print(clean_text)
-    #TODO: impliment json? https://platform.openai.com/docs/guides/text-generation/json-mode
+    #TODO: impliment json with instructor? https://platform.openai.com/docs/guides/text-generation/json-mode
     
     return response.choices[0].message.content
 
