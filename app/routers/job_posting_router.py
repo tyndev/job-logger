@@ -1,0 +1,1 @@
+# TODO: Consider using FastAPI's routers to organize your endpoints. The job posting parsing endpoint can be moved to here to keep `main.py` clean and focused on app setup.
