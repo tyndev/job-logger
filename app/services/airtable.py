@@ -1,3 +1,4 @@
+import logging 
 import httpx
 import os
 from dotenv import load_dotenv
@@ -16,9 +17,15 @@ headers = {
 }
 
 async def insert_job_posting(job_posting: JobPosting):
+
+    fields_data = job_posting.model_dump(by_alias=True, exclude_none=True)
+    payload = {"records": [{"fields": fields_data}]}
+
+    logging.info(f"Sending payload to Airtable: {payload}")
+    
     url = f"https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}"
     async with httpx.AsyncClient() as client:
-        response = await client.post(url, json={"fields": job_posting.model_dump()}, headers=headers)
+        response = await client.post(url, json=payload, headers=headers)
         response.raise_for_status()  # TODO: handle errors appropriately
         return response.json()
 

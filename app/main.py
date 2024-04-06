@@ -1,10 +1,14 @@
-from fastapi import FastAPI, HTTPException
 import httpx
+import logging
+
+from fastapi import FastAPI, HTTPException
 
 from .utils.text_extraction import fetch_job_posting, extract_relevant_text
 from .services.openai_services import send_to_openai
 from .models.job_posting import JobPosting
 from .services.airtable import insert_job_posting
+
+logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 app = FastAPI(title="Personal Job Posting Parser and Tracker", version="1.0")
 
@@ -16,7 +20,8 @@ async def parse_job_posting(url: str) -> JobPosting:
     return parsed_data
 
 
-@app.post("/job-posting/", response_model=JobPosting)
+# @app.post("/job-posting/", response_model=JobPosting)
+@app.post("/job-posting/")
 async def parse_job_posting_route(url: str):
     try:
         parsed_data = await parse_job_posting(url)

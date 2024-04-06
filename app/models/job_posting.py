@@ -1,17 +1,17 @@
 from pydantic import BaseModel, Field
-from typing import List
 import enum
 
 
 class JobPosting(BaseModel):
-    title: str
+    company: str = Field(..., alias="Company")
+    title: str = Field(..., alias="Job Title")
     min_salary: int = Field(None, alias="Min Salary")
     max_salary: int = Field(None, alias="Max Salary")
-    location: str
-    remote: str
-    hybrid: str
-    equity: str
-    years_experience: int = Field(..., alias="Years Experience")
+    location: str = Field(None, alias="Location")
+    remote: str = Field(None, alias="Remote")
+    hybrid: str = Field(None, alias="Hybrid")
+    equity: str = Field(None, alias="Equity")
+    years_experience: int = Field(None, alias="Years Experience")
 
 
 # TODO: Incorporate teh Below Labels 
