@@ -16,7 +16,8 @@ app = FastAPI(title="Personal Job Posting Parser and Tracker", version="1.0")
 async def parse_job_posting(url: str) -> JobPosting:
     job_posting_html = await fetch_job_posting(url)
     clean_text = extract_relevant_text(job_posting_html)
-    parsed_data = await send_to_openai(clean_text)  
+    parsed_data = await send_to_openai(clean_text)
+      
     return parsed_data
 
 
@@ -25,6 +26,7 @@ async def parse_job_posting(url: str) -> JobPosting:
 async def parse_job_posting_route(url: str):
     try:
         parsed_data = await parse_job_posting(url)
+        parsed_data.posting_link = url
         saved_record = await insert_job_posting(parsed_data)
         return {"message": "Job posting parsed and saved successfully", "data": saved_record}
     except httpx.HTTPStatusError as e:

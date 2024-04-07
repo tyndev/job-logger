@@ -11,7 +11,10 @@ class JobPosting(BaseModel):
     remote: str = Field(None, alias="Remote")
     hybrid: str = Field(None, alias="Hybrid")
     equity: str = Field(None, alias="Equity")
+    keywords: str = Field(None, alias="Keywords")
+    job_description_summary: str = Field(None, alias="Job Description Summary")
     years_experience: int = Field(None, alias="Years Experience")
+    posting_link: str = Field(None, alias="Posting Link")
 
 
 # TODO: Incorporate teh Below Labels 

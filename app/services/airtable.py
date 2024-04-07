@@ -23,9 +23,9 @@ async def insert_job_posting(job_posting: JobPosting):
 
     logging.info(f"Sending payload to Airtable: {payload}")
     
-    url = f"https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}"
+    airtable_url = f"https://api.airtable.com/v0/{BASE_ID}/{TABLE_NAME}"
     async with httpx.AsyncClient() as client:
-        response = await client.post(url, json=payload, headers=headers)
+        response = await client.post(airtable_url, json=payload, headers=headers)
         response.raise_for_status()  # TODO: handle errors appropriately
         return response.json()
 

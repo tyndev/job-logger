@@ -13,10 +13,9 @@ async def send_to_openai(clean_text: str) -> JobPosting:
     response = await client.chat.completions.create(
         model='gpt-4',
         messages=[
-            {'role': 'user', 'content': f"{clean_text}"}
+            {'role': 'user', 'content': f"Summarize the following job posting into one short sentence. Determine the most important keywords that applicants should include in their resume. Then classify the following job description and include your summary as the 'Job Description Summary' and your keywords as 'Keywords'. Job Posting: {clean_text}"}
         ],
         temperature=0.7,
         response_model=JobPosting
-    )
-   
+    )   
     return response
